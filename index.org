@@ -1,0 +1,29 @@
+#+OPTIONS: ^:{}
+#+OPTIONS: H:3 toc:3 \n:t
+#+OPTIONS: author:nil
+#+TITLE: AperyGenerateTeacher
+#+AUTHOR: 平岡 拓也
+#+EMAIL: hiraoka64@gmail.com
+@<center>@<h3>Aperyを強くする為に、どうか皆様のPCのお力を！@</h3>@</center>
+* これは何？
+- Apery の評価関数の機械学習に使う教師データを、皆様の PC で生成して頂くプロジェクトです！
+- 皆様の PC で生成したデータを使って機械学習する事で Apery が強くなり、新しい評価関数を公開する事でお礼のお返しとさせて頂いています。
+
+* 最新バージョンのダウンロード
+- [[https://github.com/HiraokaTakuya/aperygenerateteacher/releases/tag/v1.3.0][AperyGenerateTeacher\_v1.3.0 (on GitHub)]]
+- [[https://drive.google.com/open?id=0B0d3atdVgIH2MGRuemc3bmU5bUU][AperyGenerateTeacher\_v1.3.0 (on Google Drive)]]
+
+* 使い方
+- zip ファイルをダウンロードして解凍します。
+- binフォルダの中の AperyGenerateTeacherGUI.exe をダブルクリックします。
+- 「作成・送信を繰り返す回数を入力して下さい。」の所に数字を入力します。
+- 「作成開始」ボタンを押します。
+  これだけです。
+  一回の作成・送信に1時間から5時間程度掛かると思います。(PCの性能により異なります。)
+  64bit Windows で、メモリが 2~3GB 程度空いていれば動作させる事が出来ます。
+  途中で止めたくなった場合は、✕ボタンをクリックして終了して下さい。
+  その際にはデータ送信は行われませんが、特に問題はありません。
+- 常に最新版のみでデータ受け付けを行う予定です。
+  Apery が強くなる度に、アップデートする予定です。
+
+@<br>
