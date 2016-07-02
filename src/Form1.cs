@@ -161,7 +161,7 @@ namespace AperyGenerateTeacherGUI
             try {
                 var request = new PutObjectRequest
                 {
-                    BucketName = "apery-teacher",
+                    BucketName = "apery-teacher-v1.0.1",
                     FilePath = file,
                 };
                 var response = client.PutObject(request);
@@ -211,10 +211,12 @@ namespace AperyGenerateTeacherGUI
                 ;
             if (!process.HasExited)
                 process.Kill();
+            process.Close();
 
             this.SetText("教師データシャッフル中");
             String shufOutfile = "shuf" + outfile;
-            startInfo = new ProcessStartInfo("shuffle_fspe.exe", outfile + " " + shufOutfile);
+            startInfo = new ProcessStartInfo("shuffle_fspe.exe");
+            startInfo.Arguments = outfile + " " + shufOutfile;
             startInfo.CreateNoWindow = true;
             startInfo.RedirectStandardInput = true;
             startInfo.RedirectStandardOutput = true;
@@ -222,14 +224,13 @@ namespace AperyGenerateTeacherGUI
 
             process.StartInfo = startInfo;
             process.Start();
-            if (!process.HasExited)
-                process.Kill();
+            process.WaitForExit();
             File.Delete(outfile);
             this.SetText("教師データシャッフル完了");
-
+            
             this.SetText("教師データ圧縮中");
             String outCompressedFile = shufOutfile + ".7z";
-            CompressFile(outfile, outCompressedFile);
+            CompressFile(shufOutfile, outCompressedFile);
             this.SetText("教師データ圧縮完了");
             File.Delete(shufOutfile);
             // send aws s3
@@ -248,13 +249,32 @@ namespace AperyGenerateTeacherGUI
             }
             SetButton(true);
         }
+        private bool FileIsOK(String filename, long size)
+        {
+            var fi = new System.IO.FileInfo(filename);
+            long fileSize = fi.Length;
+            if (fileSize != size)
+            {
+                boxLog.Text = filename + " が破損しています。";
+                return false;
+            }
+            return true;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!FileIsOK("roots.fsp", 4229347640) ||
+                !FileIsOK("apery.exe", 3461991) ||
+                !FileIsOK("20160307\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160307\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160307\\KK_synthesized.bin", 52488))
+            {
+                return;
+            }
             if (!Int64.TryParse(boxThreads.Text, out threads))
             {
                 return;
             }
-            if (!Int64.TryParse(boxTeacherNodes.Text, out teacherNodes) && teacherNodes < 1000000)
+            if (!Int64.TryParse(boxTeacherNodes.Text, out teacherNodes) || teacherNodes < 1000000)
             {
                 return;
             }
