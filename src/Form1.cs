@@ -263,7 +263,8 @@ namespace AperyGenerateTeacherGUI
         private void button1_Click(object sender, EventArgs e)
         {
             if (!FileIsOK("roots.fsp", 4229347640) ||
-                !FileIsOK("apery.exe", 3461991) ||
+                !FileIsOK("apery.exe", 1359360) ||
+                !FileIsOK("shuffle_fspe.exe", 864768) ||
                 !FileIsOK("20160307\\KPP_synthesized.bin", 776402496) ||
                 !FileIsOK("20160307\\KKP_synthesized.bin", 81251424) ||
                 !FileIsOK("20160307\\KK_synthesized.bin", 52488))
