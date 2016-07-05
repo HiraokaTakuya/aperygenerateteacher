@@ -282,7 +282,7 @@ void make_teacher(std::istringstream& ssCmd) {
 		std::cerr << "Error: cannot open " << recordFileName << std::endl;
 		exit(EXIT_FAILURE);
 	}
-	const size_t entryNum = ifs.tellg() / sizeof(FixedSizePos);
+	const size_t entryNum = ifs.tellg() / sizeof(HuffmanCodedPos);
 	std::uniform_int_distribution<s64> inputFileDist(0, entryNum-1);
 
 	Mutex imutex;
@@ -295,14 +295,14 @@ void make_teacher(std::istringstream& ssCmd) {
 	auto func = [&omutex, &ofs, &imutex, &ifs, &inputFileDist, &teacherNodes](Position& pos, std::atomic<s64>& idx, const int threadID) {
 		std::mt19937 mt(std::chrono::system_clock::now().time_since_epoch().count() + threadID);
 		std::uniform_real_distribution<double> doRandomMoveDist(0.0, 1.0);
-		FixedSizePos fsp;
+		HuffmanCodedPos hcp;
 		while (idx < teacherNodes) {
 			{
 				std::unique_lock<Mutex> lock(imutex);
-				ifs.seekg(inputFileDist(mt) * sizeof(FixedSizePos), std::ios_base::beg);
-				ifs.read(reinterpret_cast<char*>(&fsp), sizeof(fsp));
+				ifs.seekg(inputFileDist(mt) * sizeof(HuffmanCodedPos), std::ios_base::beg);
+				ifs.read(reinterpret_cast<char*>(&hcp), sizeof(hcp));
 			}
-			setPosition(pos, fsp);
+			setPosition(pos, hcp);
 			randomMove(pos, mt); // 教師局面を増やす為、取得した元局面からランダムに動かしておく。
 			double randomMoveRateThresh = 0.2;
 			std::unordered_set<Key> keyHash;
@@ -329,11 +329,11 @@ void make_teacher(std::istringstream& ssCmd) {
 					break;
 
 				{
-					FixedSizePosAndEval fspe;
-					fspe.padding = 0;
-					fspe.fixedSizePos = pos.toFixedSizePos(ply);
+					HuffmanCodedPosAndEval hcpe;
+					hcpe.hcp = pos.toHuffmanCodedPos();
 					auto& pv = pos.searcher()->threads.mainThread()->rootMoves[0].pv_;
 					Ply tmpPly = 0;
+					const Color rootTurn = pos.turn();
 					StateInfo state[MaxPlyPlus4];
 					StateInfo* st = state;
 					while (!pv[tmpPly].isNone())
@@ -343,13 +343,13 @@ void make_teacher(std::istringstream& ssCmd) {
 					ss[0].staticEvalRaw.p[0][0] = ss[1].staticEvalRaw.p[0][0] = ScoreNotEvaluated;
 					const Score eval = evaluate(pos, ss+1);
 					// root の手番から見た評価値に直す。
-					fspe.eval = (static_cast<Color>(fspe.fixedSizePos.turn) == pos.turn() ? eval : -eval);
+					hcpe.eval = (rootTurn == pos.turn() ? eval : -eval);
 
 					while (tmpPly)
 						pos.undoMove(pv[--tmpPly]);
 
 					std::unique_lock<Mutex> lock(omutex);
-					ofs.write(reinterpret_cast<char*>(&fspe), sizeof(fspe));
+					ofs.write(reinterpret_cast<char*>(&hcpe), sizeof(hcpe));
 				}
 
 				setUpStates->push(StateInfo());
@@ -431,6 +431,7 @@ namespace {
 		g_evalTable.clear();
 	}
 }
+
 void use_teacher(Position& /*pos*/, std::istringstream& /*ssCmd*/) {
 }
 
@@ -597,6 +598,11 @@ void setPosition(Position& pos, std::istringstream& ssCmd) {
 
 void setPosition(Position& pos, const FixedSizePos& fsp) {
 	pos.set(fsp, pos.searcher()->threads.mainThread());
+	pos.searcher()->usiSetUpStates = StateStackPtr(new std::stack<StateInfo>());
+}
+
+void setPosition(Position& pos, const HuffmanCodedPos& hcp) {
+	pos.set(hcp, pos.searcher()->threads.mainThread());
 	pos.searcher()->usiSetUpStates = StateStackPtr(new std::stack<StateInfo>());
 }
 

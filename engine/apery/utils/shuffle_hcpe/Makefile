@@ -6,7 +6,7 @@
 CXX=g++
 
 LDFLAGS=
-TARGET_BASE=shuffle_fspe
+TARGET_BASE=shuffle_hcpe
 ifeq ($(OS),Windows_NT)
 	TARGET=${TARGET_BASE}.exe
 	LDFLAGS += -static
