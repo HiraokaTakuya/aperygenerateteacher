@@ -205,8 +205,9 @@ namespace AperyGenerateTeacherGUI
                     this.SetText("サーバーに教師データを送信しています。");
                 var request = new PutObjectRequest
                 {
-                    BucketName = "apery-teacher-v1.0.3",
+                    BucketName = "apery-teacher-v1.1.1",
                     FilePath = file,
+                    CannedACL = S3CannedACL.BucketOwnerFullControl,
                 };
                 var response = client.PutObject(request);
                 if (!isTest)
@@ -253,7 +254,7 @@ namespace AperyGenerateTeacherGUI
             Amazon.Runtime.AnonymousAWSCredentials testan = new Amazon.Runtime.AnonymousAWSCredentials();
             try
             {
-                using (client = new AmazonS3Client(testan, Amazon.RegionEndpoint.USWest1)) // リージョンは今後変わる可能性有り。
+                using (client = new AmazonS3Client(testan, Amazon.RegionEndpoint.EUWest1)) // リージョンは今後変わる可能性有り。
                 {
                     WriteContent(testfile, true);
                 };
@@ -325,7 +326,7 @@ namespace AperyGenerateTeacherGUI
                     Amazon.Runtime.AnonymousAWSCredentials an = new Amazon.Runtime.AnonymousAWSCredentials();
                     try
                     {
-                        using (client = new AmazonS3Client(an, Amazon.RegionEndpoint.USWest1)) // リージョンは今後変わる可能性有り。
+                        using (client = new AmazonS3Client(an, Amazon.RegionEndpoint.EUWest1)) // リージョンは今後変わる可能性有り。
                         {
                             WriteContent(outCompressedFile, false);
                         };
@@ -357,9 +358,9 @@ namespace AperyGenerateTeacherGUI
             if (!FileIsOK("roots.hcp", 1499386784) ||
                 !FileIsOK("apery.exe", 1363968) ||
                 !FileIsOK("shuffle_hcpe.exe", 864768) ||
-                !FileIsOK("20160307\\KPP_synthesized.bin", 776402496) ||
-                !FileIsOK("20160307\\KKP_synthesized.bin", 81251424) ||
-                !FileIsOK("20160307\\KK_synthesized.bin", 52488))
+                !FileIsOK("20160722\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160722\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160722\\KK_synthesized.bin", 52488))
             {
                 return;
             }
