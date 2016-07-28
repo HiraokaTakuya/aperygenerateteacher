@@ -205,7 +205,7 @@ namespace AperyGenerateTeacherGUI
                     this.SetText("サーバーに教師データを送信しています。");
                 var request = new PutObjectRequest
                 {
-                    BucketName = "apery-teacher-v1.1.1",
+                    BucketName = "apery-teacher-v1.2.0",
                     FilePath = file,
                     CannedACL = S3CannedACL.BucketOwnerFullControl,
                 };
@@ -358,9 +358,9 @@ namespace AperyGenerateTeacherGUI
             if (!FileIsOK("roots.hcp", 1499386784) ||
                 !FileIsOK("apery.exe", 1363968) ||
                 !FileIsOK("shuffle_hcpe.exe", 864768) ||
-                !FileIsOK("20160722\\KPP_synthesized.bin", 776402496) ||
-                !FileIsOK("20160722\\KKP_synthesized.bin", 81251424) ||
-                !FileIsOK("20160722\\KK_synthesized.bin", 52488))
+                !FileIsOK("20160727\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160727\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160727\\KK_synthesized.bin", 52488))
             {
                 return;
             }
