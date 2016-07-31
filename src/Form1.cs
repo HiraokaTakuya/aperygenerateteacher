@@ -14,11 +14,16 @@ using System.Text.RegularExpressions;
 using Amazon.S3;
 using Amazon.S3.Model;
 using SevenZip.SDK;
+using System.Net.Http;
+using System.Net;
+using System.Web;
 
 namespace AperyGenerateTeacherGUI
 {
     public partial class Form1 : Form
     {
+        private String version = "1.3.0";
+        private bool isOlderVersion = false;
         private Label labelThreads;
         private Label labelTeacherNodes;
         private Label labelLoop;
@@ -197,7 +202,7 @@ namespace AperyGenerateTeacherGUI
                     this.SetText("サーバーに教師データを送信しています。");
                 var request = new PutObjectRequest
                 {
-                    BucketName = "apery-teacher-v1.2.0",
+                    BucketName = "apery-teacher-v" + version,
                     FilePath = file,
                     CannedACL = S3CannedACL.BucketOwnerFullControl,
                 };
@@ -232,6 +237,35 @@ namespace AperyGenerateTeacherGUI
         }
         private void ThreadProcSafe()
         {
+            try {
+                var webRequest = WebRequest.Create("https://hiraokatakuya.github.io/aperygenerateteacher/version.txt");
+                var webResponse = webRequest.GetResponse();
+                var webStream = webResponse.GetResponseStream();
+                var streamReader = new StreamReader(webStream, Encoding.UTF8);
+                var htmlSource = streamReader.ReadToEnd();
+                streamReader.Close();
+                webStream.Close();
+                webResponse.Close();
+                if (htmlSource == version + "\n")
+                {
+                    // 最新のバージョン
+                    // nop
+                }
+                else
+                {
+                    // バージョンが更新されている。
+                    this.SetText("最新バージョンをダウンロードしてからご協力頂けますと幸いです。");
+                    isOlderVersion = true;
+                    SetButton(true);
+                    return;
+                }
+            }
+            catch (WebException ex)
+            {
+                // バージョン確認にアクセス出来なかった。
+                // 取りあえず、そのまま通常通りデータ生成を行う。
+                // nop
+            }
             // send test aws s3
             // テスト用ファイル作成
             String testfile = "test.txt";
@@ -355,9 +389,9 @@ namespace AperyGenerateTeacherGUI
             if (!FileIsOK("roots.hcp", 1499386784) ||
                 !FileIsOK("apery.exe", 1363968) ||
                 !FileIsOK("shuffle_hcpe.exe", 864768) ||
-                !FileIsOK("20160727\\KPP_synthesized.bin", 776402496) ||
-                !FileIsOK("20160727\\KKP_synthesized.bin", 81251424) ||
-                !FileIsOK("20160727\\KK_synthesized.bin", 52488))
+                !FileIsOK("20160730\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160730\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160730\\KK_synthesized.bin", 52488))
             {
                 return;
             }
