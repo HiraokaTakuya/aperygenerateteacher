@@ -7,14 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -344,22 +336,19 @@ namespace AperyGenerateTeacherGUI
         }
         private bool FileIsOK(String filename, long size)
         {
-            try
-            {
-                var fi = new FileInfo(filename);
-                long fileSize = fi.Length;
-                if (fileSize != size)
-                {
-                    boxLog.Text = filename + " が破損しています。";
-                    return false;
-                }
-                return true;
-            }
-            catch (FileNotFoundException)
+            var fi = new System.IO.FileInfo(filename);
+            if (!fi.Exists)
             {
                 boxLog.Text = filename + " がありません。";
                 return false;
             }
+            long fileSize = fi.Length;
+            if (fileSize != size)
+            {
+                boxLog.Text = filename + " が破損しています。";
+                return false;
+            }
+            return true;
         }
         private void button1_Click(object sender, EventArgs e)
         {
