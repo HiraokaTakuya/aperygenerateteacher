@@ -344,14 +344,22 @@ namespace AperyGenerateTeacherGUI
         }
         private bool FileIsOK(String filename, long size)
         {
-            var fi = new System.IO.FileInfo(filename);
-            long fileSize = fi.Length;
-            if (fileSize != size)
+            try
             {
-                boxLog.Text = filename + " が破損しています。";
+                var fi = new FileInfo(filename);
+                long fileSize = fi.Length;
+                if (fileSize != size)
+                {
+                    boxLog.Text = filename + " が破損しています。";
+                    return false;
+                }
+                return true;
+            }
+            catch (FileNotFoundException)
+            {
+                boxLog.Text = filename + " がありません。";
                 return false;
             }
-            return true;
         }
         private void button1_Click(object sender, EventArgs e)
         {
