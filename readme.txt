@@ -21,6 +21,11 @@ Apery を更に強くする為に、皆様、どうか力を貸して下さい�
 
 更新履歴
 
+2016-08-04  HiraokaTakuya <hiraoka64@gmail.com>
+
+	* v1.4.0
+	評価関数ファイルを更新しました。
+
 2016-07-31  HiraokaTakuya <hiraoka64@gmail.com>
 
 	* v1.3.0

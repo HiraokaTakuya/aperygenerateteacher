@@ -22,7 +22,7 @@ namespace AperyGenerateTeacherGUI
 {
     public partial class Form1 : Form
     {
-        private String version = "1.3.0";
+        private String version = "1.4.0";
         private bool isOlderVersion = false;
         private Label labelThreads;
         private Label labelTeacherNodes;
@@ -109,7 +109,7 @@ namespace AperyGenerateTeacherGUI
             boxLoopLog.Text = "入力不要";
             this.Controls.Add(boxLoopLog);
             labelLog = new Label();
-            labelLog.Text = "ログ";
+            labelLog.Text = "Info";
             labelLog.Height = 15;
             labelLog.Width = this.Width;
             labelLog.Top = boxLoopLog.Bottom + 5;
@@ -389,9 +389,9 @@ namespace AperyGenerateTeacherGUI
             if (!FileIsOK("roots.hcp", 1499386784) ||
                 !FileIsOK("apery.exe", 1363968) ||
                 !FileIsOK("shuffle_hcpe.exe", 864768) ||
-                !FileIsOK("20160730\\KPP_synthesized.bin", 776402496) ||
-                !FileIsOK("20160730\\KKP_synthesized.bin", 81251424) ||
-                !FileIsOK("20160730\\KK_synthesized.bin", 52488))
+                !FileIsOK("20160803\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160803\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160803\\KK_synthesized.bin", 52488))
             {
                 return;
             }
