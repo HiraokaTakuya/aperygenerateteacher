@@ -10,8 +10,8 @@
 - 皆様の PC で生成したデータを使って機械学習する事で Apery が強くなり、新しい評価関数を公開する事でお礼のお返しとさせて頂いています。
 
 * 最新バージョンのダウンロード
-- [[https://github.com/HiraokaTakuya/aperygenerateteacher/releases/tag/v1.3.0][AperyGenerateTeacher\_v1.3.0 (on GitHub)]]
-- [[https://drive.google.com/open?id=0B0d3atdVgIH2MGRuemc3bmU5bUU][AperyGenerateTeacher\_v1.3.0 (on Google Drive)]]
+- [[https://github.com/HiraokaTakuya/aperygenerateteacher/releases/tag/v1.4.0][AperyGenerateTeacher\_v1.4.0 (on GitHub)]]
+- [[https://drive.google.com/open?id=0B0d3atdVgIH2Q0lkMDVZbFNpMGs][AperyGenerateTeacher\_v1.4.0 (on Google Drive)]]
 
 * 使い方
 - zip ファイルをダウンロードして解凍します。
