@@ -22,7 +22,7 @@ namespace AperyGenerateTeacherGUI
 {
     public partial class Form1 : Form
     {
-        private String version = "1.6.0";
+        private String version = "1.7.0";
         private bool isOlderVersion = false;
         private Label labelThreads;
         private Label labelTeacherNodes;
@@ -389,9 +389,9 @@ namespace AperyGenerateTeacherGUI
             if (!FileIsOK("roots.hcp", 1499386784) ||
                 !FileIsOK("apery.exe", 1363968) ||
                 !FileIsOK("shuffle_hcpe.exe", 864768) ||
-                !FileIsOK("20160812\\KPP_synthesized.bin", 776402496) ||
-                !FileIsOK("20160812\\KKP_synthesized.bin", 81251424) ||
-                !FileIsOK("20160812\\KK_synthesized.bin", 52488))
+                !FileIsOK("20160815\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160815\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160815\\KK_synthesized.bin", 52488))
             {
                 return;
             }
