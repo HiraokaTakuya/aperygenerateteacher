@@ -21,6 +21,12 @@ Apery を更に強くする為に、皆様、どうか力を貸して下さい�
 
 更新履歴
 
+2016-08-24  HiraokaTakuya <hiraoka64@gmail.com>
+
+	* v1.9.0
+	評価関数ファイルを更新しました。
+	1回で生成・送信する局面数を100万に固定しました。
+
 2016-08-21  HiraokaTakuya <hiraoka64@gmail.com>
 
 	* v1.8.0

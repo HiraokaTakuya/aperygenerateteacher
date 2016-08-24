@@ -22,15 +22,13 @@ namespace AperyGenerateTeacherGUI
 {
     public partial class Form1 : Form
     {
-        private String version = "1.8.0";
+        private String version = "1.9.0";
         private bool isOlderVersion = false;
         private Label labelThreads;
-        private Label labelTeacherNodes;
         private Label labelLoop;
         private Label labelLoopLog;
         private Label labelLog;
         private TextBox boxThreads;
-        private TextBox boxTeacherNodes;
         private TextBox boxLoop;
         private TextBox boxLoopLog;
         private TextBox boxLog;
@@ -40,7 +38,7 @@ namespace AperyGenerateTeacherGUI
         private bool runFrag = false;
         private TextBox textBox1;
         private long threads;
-        private long teacherNodes;
+        private long teacherNodes = 1000000;
         private long loops;
         private Random random = null;
         private IAmazonS3 client = null;
@@ -48,7 +46,7 @@ namespace AperyGenerateTeacherGUI
 
         public Form1()
         {
-            this.Width = 450;
+            this.Width = 460;
             this.Height = 400;
             SetupControls();
         }
@@ -66,23 +64,16 @@ namespace AperyGenerateTeacherGUI
             boxThreads.Left = 10;
             boxThreads.Text = Environment.ProcessorCount.ToString();
             this.Controls.Add(boxThreads);
-            labelTeacherNodes = new Label();
-            labelTeacherNodes.Text = "作成・送信する教師局面数を入力して下さい。(100万以上の値を入力して下さい。)";
-            labelTeacherNodes.Height = 15;
-            labelTeacherNodes.Width = this.Width;
-            labelTeacherNodes.Top = boxThreads.Bottom + 5;
-            this.Controls.Add(labelTeacherNodes);
-            boxTeacherNodes = new TextBox();
-            boxTeacherNodes.Width = 150;
-            boxTeacherNodes.Top = labelTeacherNodes.Bottom;
-            boxTeacherNodes.Left = 10;
-            boxTeacherNodes.Text = 1000000.ToString();
-            this.Controls.Add(boxTeacherNodes);
             labelLoop = new Label();
-            labelLoop.Text = "作成・送信を繰り返す回数を入力して下さい。";
-            labelLoop.Height = 15;
+            labelLoop.Text = "作成・送信を繰り返す回数を入力して下さい。\n" +
+                "(１回で１００万局面分のデータを作成・送信します。\n" +
+                " PCの性能によりますが、１回で３０分から２時間程度掛かると思います。\n" +
+                " 大きめの数値を入力し、途中で止めたくなった時に\n" +
+                " ×ボタンをクリックして終了して頂いても結構です。\n" +
+                " その場合は最後の１回以外はデータを送信出来ます。)";
+            labelLoop.Height = 75;
             labelLoop.Width = this.Width;
-            labelLoop.Top = boxTeacherNodes.Bottom + 5;
+            labelLoop.Top = boxThreads.Bottom + 5;
             this.Controls.Add(labelLoop);
             boxLoop = new TextBox();
             boxLoop.Top = labelLoop.Bottom;
@@ -389,17 +380,13 @@ namespace AperyGenerateTeacherGUI
             if (!FileIsOK("roots.hcp", 1499386784) ||
                 !FileIsOK("apery.exe", 1363968) ||
                 !FileIsOK("shuffle_hcpe.exe", 864768) ||
-                !FileIsOK("20160821\\KPP_synthesized.bin", 776402496) ||
-                !FileIsOK("20160821\\KKP_synthesized.bin", 81251424) ||
-                !FileIsOK("20160821\\KK_synthesized.bin", 52488))
+                !FileIsOK("20160824\\KPP_synthesized.bin", 776402496) ||
+                !FileIsOK("20160824\\KKP_synthesized.bin", 81251424) ||
+                !FileIsOK("20160824\\KK_synthesized.bin", 52488))
             {
                 return;
             }
             if (!Int64.TryParse(boxThreads.Text, out threads))
-            {
-                return;
-            }
-            if (!Int64.TryParse(boxTeacherNodes.Text, out teacherNodes) || teacherNodes < 1000000)
             {
                 return;
             }
