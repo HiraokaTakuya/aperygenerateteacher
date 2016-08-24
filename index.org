@@ -10,7 +10,7 @@
 - 皆様の PC で生成したデータを使って機械学習する事で Apery が強くなり、新しい評価関数を公開する事でお礼のお返しとさせて頂いています。
 
 * 最新バージョンのダウンロード
-- [[https://drive.google.com/open?id=0B0d3atdVgIH2a0haQm9fTDZtbHM][AperyGenerateTeacher\_v1.8.0 (on Google Drive)]]
+- [[https://drive.google.com/open?id=0B0d3atdVgIH2eHB2MVlnS2RlOW8][AperyGenerateTeacher\_v1.9.0 (on Google Drive)]]
 
 * 使い方
 - zip ファイルをダウンロードして解凍します。
@@ -18,7 +18,7 @@
 - 「作成・送信を繰り返す回数を入力して下さい。」の所に数字を入力します。
 - 「作成開始」ボタンを押します。
   これだけです。
-  一回の作成・送信に1時間から5時間程度掛かると思います。(PCの性能により異なります。)
+  一回の作成・送信に30分から2時間程度掛かると思います。(PCの性能により異なります。)
   64bit Windows で、メモリが 2~3GB 程度空いていれば動作させる事が出来ます。
   途中で止めたくなった場合は、✕ボタンをクリックして終了して下さい。
   その際にはデータ送信は行われませんが、特に問題はありません。
