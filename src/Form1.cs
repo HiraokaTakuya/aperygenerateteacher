@@ -22,7 +22,7 @@ namespace AperyGenerateTeacherGUI
 {
     public partial class Form1 : Form
     {
-        private String version = "1.9.0";
+        private String version = "1.9.1";
         private bool isOlderVersion = false;
         private Label labelThreads;
         private Label labelLoop;

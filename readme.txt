@@ -21,6 +21,11 @@ Apery を更に強くする為に、皆様、どうか力を貸して下さい�
 
 更新履歴
 
+2016-08-28  HiraokaTakuya <hiraoka64@gmail.com>
+
+	* v1.9.1
+	探索深さを変更しました。
+
 2016-08-24  HiraokaTakuya <hiraoka64@gmail.com>
 
 	* v1.9.0
