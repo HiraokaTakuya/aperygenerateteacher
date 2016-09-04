@@ -320,13 +320,11 @@ void make_teacher(std::istringstream& ssCmd) {
 					break;
 				pos.searcher()->alpha = -ScoreMaxEvaluate;
 				pos.searcher()->beta  =  ScoreMaxEvaluate;
-				go(pos, static_cast<Depth>(8));
+				go(pos, static_cast<Depth>(6));
 				const Score score = pos.searcher()->threads.mainThread()->rootMoves[0].score_;
 				const Move bestMove = pos.searcher()->threads.mainThread()->rootMoves[0].pv_[0];
-#if 0
-				if (ScoreMaxEvaluate < abs(score)) // 差が付いたので投了した事にする。
+				if (3000 < abs(score)) // 差が付いたので投了した事にする。
 					break;
-#endif
 				if (bestMove.isNone()) // 勝ち宣言など
 					break;
 
