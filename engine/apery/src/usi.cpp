@@ -186,7 +186,6 @@ void go(const Position& pos, const Ply depth) {
 #else
 // 教師局面を増やす為、適当に駒を動かす。玉の移動を多めに。王手が掛かっている時は呼ばない事にする。
 void randomMove(Position& pos, std::mt19937& mt) {
-	assert(!pos.inCheck());
 	StateInfo state[MaxPlyPlus4];
 	StateInfo* st = state;
 	const Color us = pos.turn();
@@ -344,6 +343,7 @@ void make_teacher(std::istringstream& ssCmd) {
 					const Score eval = evaluate(pos, ss+1);
 					// root の手番から見た評価値に直す。
 					hcpe.eval = (rootTurn == pos.turn() ? eval : -eval);
+					hcpe.bestMove16 = static_cast<u16>(pv[0].value());
 
 					while (tmpPly)
 						pos.undoMove(pv[--tmpPly]);
