@@ -11,6 +11,7 @@
 
 * 最新バージョンのダウンロード
 - [[https://drive.google.com/open?id=0B0d3atdVgIH2cEc1V19mUHd3Ulk][AperyGenerateTeacher\_v1.15.0 (on Google Drive)]]
+- [[https://github.com/HiraokaTakuya/aperygenerateteacher/releases/tag/v1.15.0][AperyGenerateTeacher\_v1.15.0 (on GitHub)]]
 
 * 使い方
 - zip ファイルをダウンロードして解凍します。
